@@ -1,0 +1,1 @@
+insert into MEMBRE(LOGIN, motdepasse, surnom) VALUES ('Albert', 'ujhuh', 'ijzaek');

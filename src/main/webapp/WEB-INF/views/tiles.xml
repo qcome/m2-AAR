@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <!-- Base Definition -->
+    <definition name="base-definition"
+                template="/WEB-INF/views/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <!-- Login Page -->
+    <definition name="accueil" template="/WEB-INF/views/accueil.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <!-- Inscription Page -->
+    <definition name="inscription" template="/WEB-INF/views/inscription.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <!-- Home Page -->
+    <definition name="menu" extends="base-definition">
+        <put-attribute name="title" value="Menu" />
+        <put-attribute name="header" value="/WEB-INF/views/menu-header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/menu.jsp" />
+    </definition>
+
+    <!-- Compétences Page -->
+    <definition name="competences" extends="base-definition">
+        <put-attribute name="title" value="Competences" />
+        <put-attribute name="header" value="Competences" />
+        <put-attribute name="body" value="/WEB-INF/views/competences.jsp" />
+    </definition>
+
+    <!-- Projets Page -->
+    <definition name="projets" extends="base-definition">
+        <put-attribute name="title" value="Projets" />
+        <put-attribute name="header" value="Projets" />
+        <put-attribute name="body" value="/WEB-INF/views/projets.jsp" />
+    </definition>
+
+
+
+
+
+</tiles-definitions>
