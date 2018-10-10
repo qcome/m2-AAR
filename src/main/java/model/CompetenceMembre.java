@@ -6,17 +6,19 @@ import java.io.Serializable;
 @Entity(name = "CompetenceMembre")
 @Table(name = "COMPETENCE_MEMBRE")
 public class CompetenceMembre implements Serializable {
+    @Id
+    @Column
+    private int id;
+
     @Column
     private int niveau;
     @Column
     private String commentaire;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "membre_login", referencedColumnName = "login")
+    @ManyToOne
     private Membre membre;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "competence_intitule", referencedColumnName = "intituleC")
+    @ManyToOne
     private Competence competence;
 
 
@@ -35,6 +37,10 @@ public class CompetenceMembre implements Serializable {
         //this.membre.addCompetenceMembre(this);
         this.competence.addCompetenceMembre(this);
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public int getNiveau() {
         return niveau;

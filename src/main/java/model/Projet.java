@@ -1,16 +1,33 @@
 package model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity(name = "Projet")
+@Table(name="PROJET")
 public class Projet implements Serializable {
+    @Id
+    @Column(name = "INTITULE")
+    @Size(min = 4,message = "Au - 4 caractères...")
     private String intituleP;
+
+    @Column(name = "DESCRIPTION")
+    @Size(min = 4,message = "Au - 4 caractères...")
     private String descriptionP;
+
+    @ManyToOne
     private Membre dirigeant;
+
+    @Column(name = "AVANCEMENT")
     private int avancement;
 
+    @ManyToMany
     private List<Competence> competencesRequises;
+
+    @ManyToMany
     private List<Membre> participants;
 
     public Projet(){

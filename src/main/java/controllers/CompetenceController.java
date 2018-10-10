@@ -1,24 +1,29 @@
 package controllers;
 
+import model.Competence;
 import model.CompetenceMembre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import services.ServiceFacade;
+import services.CompetenceMembreService;
+import services.MembreService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static javax.swing.text.StyleConstants.ModelAttribute;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping("/competences")
 public class CompetenceController {
 
     @Autowired
-    private ServiceFacade serviceFacade;
+    private CompetenceMembreService service;
+
+    @Autowired
+    private MembreService membreService;
 
     @ModelAttribute("competenceMembre")
     public CompetenceMembre setUpCompetenceMembreForm() {
@@ -33,7 +38,9 @@ public class CompetenceController {
         if(log == null){
             response.sendRedirect("/");
         }
-        //model.addAttribute("competencesDispo", serviceFacade.getCompetencesDisponibles(log));
+        Collection<CompetenceMembre> listeCompetences = service.getCompetencesDisponibles(membreService.getByLogin(log));
+        model.addAttribute("competencesDispo", listeCompetences);
+        System.out.println(listeCompetences);
         //model.addAttribute("competencesMembre", serviceFacade.getCompetencesMembre(log));
 
         return "competences";

@@ -1,11 +1,11 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity(name = "Membre")
 @Table(name="MEMBRE")
@@ -14,22 +14,29 @@ public class Membre implements Serializable {
     @Column(name = "LOGIN")
     @Size(min = 4,message = "Au - 4 caractères...")
     private String login;
+
     @Column(name = "MOTDEPASSE")
     @Size(min = 4,message = "Au - 4 caractères...")
     private String motdepasse;
+
     @Column(name = "SURNOM", unique = true)
     @Size(min = 4,message = "Au - 4 caractères...")
     private String surnom;
 
-    //private List<CompetenceMembre> competenceMembres;
-    //private List<Projet> projetsDirigeant;
-    //private List<Projet> projetsParticipant;
+    @OneToMany(mappedBy = "membre")
+    private Collection<CompetenceMembre> competenceMembres;
+
+    @OneToMany(mappedBy = "intituleP")
+    private Collection<Projet> projetsDirigeant;
+
+    @ManyToMany(mappedBy="participants")
+    private List<Projet> projetsParticipant;
 
 
     public Membre(){
-        //this.competenceMembres = new ArrayList<>();
-        //this.projetsDirigeant = new ArrayList<>();
-        //this.projetsParticipant = new ArrayList<>();
+        this.competenceMembres = new ArrayList<>();
+        this.projetsDirigeant = new ArrayList<>();
+        this.projetsParticipant = new ArrayList<>();
     }
 
     public Membre(String login, String motdepasse, String surnom) {
@@ -86,12 +93,12 @@ public class Membre implements Serializable {
     public void setSurnom(String surnom) {
         this.surnom = surnom;
     }
-/*
-    public List<CompetenceMembre> getCompetenceMembres() { return competenceMembres; }
+
+    public Collection<CompetenceMembre> getCompetenceMembres() { return competenceMembres; }
 
     public void setCompetenceMembres(List<CompetenceMembre> competenceMembres) { this.competenceMembres = competenceMembres; }
 
-    public List<Projet> getProjetsDirigeant() { return projetsDirigeant; }
+    public Collection<Projet> getProjetsDirigeant() { return projetsDirigeant; }
 
     public void setProjetsDirigeant(List<Projet> projetsDirigeant) { this.projetsDirigeant = projetsDirigeant; }
 
@@ -109,5 +116,5 @@ public class Membre implements Serializable {
                 ", projetsDirigeant=" + projetsDirigeant +
                 ", projetsParticipant=" + projetsParticipant +
                 '}';
-    }*/
+    }
 }

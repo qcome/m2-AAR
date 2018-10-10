@@ -1,19 +1,27 @@
 package model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity(name = "Competence")
+@Table(name="COMPETENCE")
 public class Competence implements Serializable {
+    @Id
+    @Column(name = "INTITULE")
+    @Size(min = 4,message = "Au - 4 caractères...")
     private String intituleC;
+
+    @Column(name = "DESCRIPTION")
+    @Size(min = 4,message = "Au - 4 caractères...")
     private String descriptionC;
 
 
-
+    @ManyToMany(mappedBy="competencesRequises")
     private List<Projet> projets;
+
+    @OneToMany(mappedBy = "competence")
     private List<CompetenceMembre> competenceMembres;
 
 
