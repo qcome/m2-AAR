@@ -25,12 +25,13 @@ public class MenuController {
 
 
     @GetMapping(value = "/")
-    public String menu(@SessionAttribute(value="loginCourant", required = false) String log, HttpServletResponse response,
+    public String menu(@SessionAttribute(value="idCourant", required = false) Long id, HttpServletResponse response,
                        Model model) throws IOException {
-        if(log == null){
+        System.out.println(id);
+        if(id == null){
             response.sendRedirect("/");
         }
-        Membre user = membreService.getByLogin(log);
+        Membre user = membreService.getById(id);
         model.addAttribute("surnomCourant", user.getSurnom());
         return "menu";
     }

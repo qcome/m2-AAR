@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
-@SessionAttributes("loginCourant")
+@SessionAttributes("idCourant")
 @RequestMapping("/inscription")
 public class InscriptionController {
 
@@ -44,7 +44,7 @@ public class InscriptionController {
         }
         try {
             service.ajouterMembre(membre);
-            model.addAttribute("loginCourant", membre.getLogin());
+            model.addAttribute("idCourant", membre.getId());
             response.sendRedirect("/menu/");
         } catch (SurnomDejaExistantException e) {
             result.rejectValue("surnom", "error.membre", "Surnom déjà existant.");

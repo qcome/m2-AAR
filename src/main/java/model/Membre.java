@@ -11,15 +11,19 @@ import java.util.List;
 @Table(name="MEMBRE")
 public class Membre implements Serializable {
     @Id
-    @Column(name = "LOGIN")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Long id;
+
+    @Column(unique = true)
     @Size(min = 4,message = "Au - 4 caractères...")
     private String login;
 
-    @Column(name = "MOTDEPASSE")
+    @Column
     @Size(min = 4,message = "Au - 4 caractères...")
     private String motdepasse;
 
-    @Column(name = "SURNOM", unique = true)
+    @Column(unique = true)
     @Size(min = 4,message = "Au - 4 caractères...")
     private String surnom;
 
@@ -69,6 +73,10 @@ public class Membre implements Serializable {
     public void addProjetParticipant(Projet projet){
         this.projetsParticipant.add(projet);
     }*/
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getLogin() {
         return login;

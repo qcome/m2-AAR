@@ -30,6 +30,10 @@ public class MembreService {
         return dao.findByLogin(login);
     }
 
+    public Membre getById(Long id){
+        return dao.findById(id);
+    }
+
     public Membre connexion(String login, String pass){
         Membre m = dao.findByLogin(login);
         if(m != null){

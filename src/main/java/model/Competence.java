@@ -8,6 +8,7 @@ import java.util.List;
 @Entity(name = "Competence")
 @Table(name="COMPETENCE")
 public class Competence implements Serializable {
+
     @Id
     @Column(name = "INTITULE")
     @Size(min = 4,message = "Au - 4 caractères...")
@@ -36,6 +37,7 @@ public class Competence implements Serializable {
         this.intituleC = intituleC;
         this.descriptionC = descriptionC;
     }
+
 
     public void addCompetenceMembre(CompetenceMembre competenceMembre){
         this.competenceMembres.add(competenceMembre);

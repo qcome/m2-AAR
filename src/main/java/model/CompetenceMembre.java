@@ -22,8 +22,6 @@ public class CompetenceMembre implements Serializable {
     private Competence competence;
 
 
-
-
     public CompetenceMembre(){
 
     }

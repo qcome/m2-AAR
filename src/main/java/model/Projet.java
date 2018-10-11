@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,24 +11,34 @@ import java.util.List;
 @Table(name="PROJET")
 public class Projet implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
+
     @Column(name = "INTITULE")
     @Size(min = 4,message = "Au - 4 caractères...")
+    @NotNull
     private String intituleP;
 
     @Column(name = "DESCRIPTION")
+    @NotNull
     @Size(min = 4,message = "Au - 4 caractères...")
     private String descriptionP;
 
+    @Column(name = "AVANCEMENT")
+    @NotNull
+    private int avancement;
+
     @ManyToOne
     private Membre dirigeant;
-
-    @Column(name = "AVANCEMENT")
-    private int avancement;
 
     @ManyToMany
     private List<Competence> competencesRequises;
 
     @ManyToMany
+    @JoinTable(name = "PROJET_MEMBRE",
+            joinColumns = @JoinColumn(name = "PROJET_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MEMBRE_ID"))
     private List<Membre> participants;
 
     public Projet(){
@@ -42,16 +53,17 @@ public class Projet implements Serializable {
         this.intituleP = intituleP;
         this.descriptionP = descriptionP;
         this.competencesRequises = competencesRequises;
-        this.participants.add(dirigeant);
         //this.dirigeant.addProjetDirigeant(this);
     }
 
     public void addParticipant(Membre membre){
-        this.participants.add(membre);
+        participants.add(membre);
+        membre.getProjetsParticipant().add(this);
     }
 
     public void addCompetence(Competence competence){
-        this.competencesRequises.add(competence);
+        competencesRequises.add(competence);
+        competence.getProjets().add(this);
     }
 
     public String getIntituleP() {

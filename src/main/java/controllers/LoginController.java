@@ -5,6 +5,7 @@ import model.Membre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.support.SessionAttributeStore;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import services.MembreService;
 import services.ServiceFacade;
 
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
-@SessionAttributes("loginCourant")
+@SessionAttributes("idCourant")
 @RequestMapping("/")
 public class LoginController {
 
@@ -49,7 +51,7 @@ public class LoginController {
         Membre m = service.connexion(membre.getLogin(), membre.getMotdepasse());
 
         if (m != null) {
-            model.addAttribute("loginCourant", membre.getLogin());
+            model.addAttribute("idCourant", membre.getId());
             response.sendRedirect("/menu/");
         } else {
             result.addError(
@@ -59,9 +61,9 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String doLogout(WebRequest request,HttpServletResponse response, SessionStatus status) throws IOException {
+    public void doLogout(WebRequest request, HttpServletResponse response, SessionStatus status) throws IOException {
         status.setComplete();
+        RedirectView redirectView = new RedirectView();
         response.sendRedirect("/");
-        return "accueil";
     }
 }
